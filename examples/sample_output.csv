@@ -1,0 +1,2 @@
+record_id;input_name;title;description_excerpt;structured_output
+1;Example Record;Sample Entry;Example semi-structured text processed by the extraction pipeline...;"{""category"":""technical"",""level"":""advanced""}"
