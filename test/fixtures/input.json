@@ -1,0 +1,29 @@
+[
+  {
+    "record_id": "ok-1",
+    "source": "Test Meetup",
+    "posted_on": "2026-02-20",
+    "title": "Valid event",
+    "description": "<p>Thursday, 12 March 2026 at 19:00 in Istanbul. Free entry.</p>"
+  },
+  {
+    "record_id": "prose-1",
+    "source": "Test Meetup",
+    "posted_on": "2026-02-20",
+    "title": "Model answers in prose",
+    "description": "<p>Some announcement.</p>"
+  },
+  {
+    "record_id": "missing-1",
+    "source": "Test Meetup",
+    "posted_on": "2026-02-20",
+    "title": "No recorded response",
+    "description": "<p>Some announcement.</p>"
+  },
+  5,
+  {
+    "record_id": "empty-1",
+    "title": "Empty description",
+    "description": "<p> </p>"
+  }
+]

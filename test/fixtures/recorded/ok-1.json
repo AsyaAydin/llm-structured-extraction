@@ -1,0 +1,17 @@
+{
+  "http_status": 200,
+  "body": {
+    "status": "completed",
+    "output": [
+      {
+        "type": "message",
+        "content": [
+          {
+            "type": "output_text",
+            "text": "{\"event_type\":\"meetup\",\"start_date\":\"2026-03-12\",\"start_time\":\"19:00\",\"format\":\"in_person\",\"city\":\"Istanbul\",\"is_free\":true,\"price_amount\":null,\"price_currency\":null,\"topic\":\"software_engineering\"}"
+          }
+        ]
+      }
+    ]
+  }
+}
