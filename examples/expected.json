@@ -1,0 +1,112 @@
+{
+  "evt-001": {
+    "event_type": "meetup",
+    "start_date": "2026-03-12",
+    "start_time": "19:00",
+    "format": "in_person",
+    "city": "Istanbul",
+    "is_free": true,
+    "price_amount": null,
+    "price_currency": null,
+    "topic": "software_engineering"
+  },
+  "evt-002": {
+    "event_type": "conference",
+    "start_date": "2026-05-14",
+    "start_time": "09:00",
+    "format": "in_person",
+    "city": "Berlin",
+    "is_free": false,
+    "price_amount": 349,
+    "price_currency": "EUR",
+    "topic": "data_ai"
+  },
+  "evt-003": {
+    "event_type": "webinar",
+    "start_date": "2026-03-03",
+    "start_time": "17:00",
+    "format": "online",
+    "city": null,
+    "is_free": true,
+    "price_amount": null,
+    "price_currency": null,
+    "topic": "business_finance"
+  },
+  "evt-004": {
+    "event_type": "workshop",
+    "start_date": "2026-03-21",
+    "start_time": "14:00",
+    "format": "in_person",
+    "city": "Izmir",
+    "is_free": false,
+    "price_amount": 750,
+    "price_currency": "TRY",
+    "topic": "arts_culture"
+  },
+  "evt-005": {
+    "event_type": "hackathon",
+    "start_date": "2026-04-18",
+    "start_time": "10:00",
+    "format": "hybrid",
+    "city": "Amsterdam",
+    "is_free": true,
+    "price_amount": null,
+    "price_currency": null,
+    "topic": "software_engineering"
+  },
+  "evt-006": {
+    "event_type": "conference",
+    "start_date": null,
+    "start_time": null,
+    "format": "in_person",
+    "city": "Ankara",
+    "is_free": null,
+    "price_amount": null,
+    "price_currency": null,
+    "topic": "science_education"
+  },
+  "evt-007": {
+    "event_type": "meetup",
+    "start_date": "2026-04-10",
+    "start_time": "19:00",
+    "format": "in_person",
+    "city": "London",
+    "is_free": false,
+    "price_amount": 8,
+    "price_currency": "GBP",
+    "topic": "sports_wellness"
+  },
+  "evt-008": {
+    "event_type": "conference",
+    "start_date": "2026-09-09",
+    "start_time": null,
+    "format": "in_person",
+    "city": "Munich",
+    "is_free": false,
+    "price_amount": 420,
+    "price_currency": "EUR",
+    "topic": "science_education"
+  },
+  "evt-009": {
+    "event_type": "workshop",
+    "start_date": "2026-06-06",
+    "start_time": "10:00",
+    "format": "online",
+    "city": null,
+    "is_free": false,
+    "price_amount": 49,
+    "price_currency": "USD",
+    "topic": "design"
+  },
+  "evt-010": {
+    "event_type": "meetup",
+    "start_date": "2026-03-25",
+    "start_time": "18:45",
+    "format": "in_person",
+    "city": "Berlin",
+    "is_free": false,
+    "price_amount": 12,
+    "price_currency": "EUR",
+    "topic": "data_ai"
+  }
+}

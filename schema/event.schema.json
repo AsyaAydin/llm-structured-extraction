@@ -1,0 +1,68 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "event_type",
+    "start_date",
+    "start_time",
+    "format",
+    "city",
+    "is_free",
+    "price_amount",
+    "price_currency",
+    "topic"
+  ],
+  "properties": {
+    "event_type": {
+      "type": "string",
+      "enum": ["meetup", "conference", "workshop", "webinar", "hackathon", "other"],
+      "description": "Kind of event."
+    },
+    "start_date": {
+      "type": ["string", "null"],
+      "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
+      "description": "First day of the event as YYYY-MM-DD, or null if not stated."
+    },
+    "start_time": {
+      "type": ["string", "null"],
+      "pattern": "^([01][0-9]|2[0-3]):[0-5][0-9]$",
+      "description": "Local start time as 24-hour HH:MM, or null if not stated."
+    },
+    "format": {
+      "type": "string",
+      "enum": ["in_person", "online", "hybrid", "unknown"],
+      "description": "How people attend."
+    },
+    "city": {
+      "type": ["string", "null"],
+      "description": "City where attendees physically gather, in English spelling; null for online-only events."
+    },
+    "is_free": {
+      "type": ["boolean", "null"],
+      "description": "True if attendance is free, false if a price is charged, null if not mentioned."
+    },
+    "price_amount": {
+      "type": ["number", "null"],
+      "description": "Standard full price of one regular ticket; null if free or not stated."
+    },
+    "price_currency": {
+      "type": ["string", "null"],
+      "pattern": "^[A-Z]{3}$",
+      "description": "ISO 4217 currency code of price_amount; null when price_amount is null."
+    },
+    "topic": {
+      "type": "string",
+      "enum": [
+        "software_engineering",
+        "data_ai",
+        "design",
+        "business_finance",
+        "science_education",
+        "arts_culture",
+        "sports_wellness",
+        "other"
+      ],
+      "description": "Main subject area of the event."
+    }
+  }
+}

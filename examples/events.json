@@ -1,0 +1,72 @@
+[
+  {
+    "record_id": "evt-001",
+    "source": "Bosphorus Backend Meetup",
+    "posted_on": "2026-02-20",
+    "title": "March meetup: Postgres indexing war stories",
+    "description": "<div class=\"event\"><h2>March meetup: Postgres indexing war stories</h2>\n<p>Our monthly get-together is back. Two short talks on query plans and partial indexes, then pizza.</p>\n<ul><li><strong>When:</strong> Thursday, 12 March 2026</li><li><strong>Doors:</strong> 18:30 &middot; <strong>Talks start:</strong> 19:00</li><li><strong>Where:</strong> Galata Tech Hub, Karaköy, Istanbul</li></ul>\n<p>Attendance is free, but seats are limited &mdash; please RSVP.</p></div>"
+  },
+  {
+    "record_id": "evt-002",
+    "source": "Northlight Events",
+    "posted_on": "2026-01-15",
+    "title": "Applied ML Summit 2026",
+    "description": "<h1>Applied ML Summit 2026</h1>\n<p><b>14&ndash;15 May 2026 &bull; Berlin</b></p>\n<p>Two days, three tracks and more than 40 talks on putting machine learning models into production: evaluation, monitoring, and LLM applications.</p>\n<h3>Schedule, day one</h3>\n<p>Registration opens at 08:15. Opening keynote at 09:00.</p>\n<h3>Tickets</h3>\n<p>Early bird: &euro;249 (until 1 April)<br>Regular: &euro;349<br>Student: &euro;120 with valid ID</p>\n<p>Venue: Spreehalle Kongress, Berlin-Friedrichshain. This is an in-person event; talks will not be streamed.</p>"
+  },
+  {
+    "record_id": "evt-003",
+    "source": "Clearwater Money Coaching",
+    "posted_on": "2026-02-10",
+    "title": "Free webinar: Budgeting basics for freelancers",
+    "description": "<p>Irregular income makes budgeting harder, not impossible. In this 60-minute online session we walk through a simple system for setting aside tax, building a buffer, and paying yourself a steady salary.</p>\n<p>Tuesday 3 March, 17:00 CET. Live online; the link is sent after registration. There is no charge to attend.</p>\n<p>You will mostly be listening, with 15 minutes for questions at the end.</p>"
+  },
+  {
+    "record_id": "evt-004",
+    "source": "Kil ve Çark Atölyesi",
+    "posted_on": "2026-03-01",
+    "title": "Seramik Atölyesi: Çark ile Tanışma",
+    "description": "<p>Hiç çamura dokunmadıysanız bu atölye tam size göre. Üç saat boyunca çarkta kendi kasenizi şekillendireceksiniz; fırınlama bizden.</p>\n<p><strong>Tarih:</strong> 21 Mart Cumartesi<br><strong>Saat:</strong> 14.00 - 17.00<br><strong>Yer:</strong> Alsancak, İzmir</p>\n<p>Katılım ücreti kişi başı 750 TL'dir, tüm malzemeler dahildir. Kontenjan 8 kişiyle sınırlıdır.</p>"
+  },
+  {
+    "record_id": "evt-005",
+    "source": "Canal City Coders",
+    "posted_on": "2026-03-20",
+    "title": "Transit App Hack Weekend",
+    "description": "<p>Build a web or mobile app on top of the city's open transport API in 30 hours. Form a team of up to four, pick a challenge, and demo your prototype on Sunday afternoon.</p>\n<table><tr><th>Starts</th><td>Saturday 18 April 2026, 10:00</td></tr><tr><th>Demos</th><td>Sunday 19 April, 16:00</td></tr><tr><th>Location</th><td>Werfkade Lab, Amsterdam &mdash; or join remotely via our video rooms</td></tr><tr><th>Cost</th><td>Free for all participants (food included on site)</td></tr></table>\n<p>Remote teams are welcome and compete in the same tracks.</p>"
+  },
+  {
+    "record_id": "evt-006",
+    "source": "Anadolu Gökbilim Topluluğu",
+    "posted_on": "2026-05-04",
+    "title": "Ulusal Amatör Astronomi Buluşması: Tarihi Not Edin",
+    "description": "<p>İki günlük buluşmamız bu sonbaharda yine Ankara'da! Gözlem teknikleri, astrofotoğrafçılık ve bilim iletişimi üzerine konuşmalardan oluşan programımız üzerinde çalışıyoruz.</p>\n<p>Kesin tarih, mekân ve kayıt koşulları önümüzdeki haftalarda duyurulacaktır. Konuşma önerilerinizi 30 Haziran'a kadar gönderebilirsiniz.</p>"
+  },
+  {
+    "record_id": "evt-007",
+    "source": "Riverside Runners",
+    "posted_on": "2026-04-06",
+    "title": "Friday social 5K + coffee",
+    "description": "<p>Easy-paced 5K along the river path, all abilities welcome. We meet this Friday at 7 pm outside the boathouse in Putney, London, and finish at the café.</p>\n<p>£8 per runner, payable on the day (covers your coffee and a pastry). Bring a friend!</p>"
+  },
+  {
+    "record_id": "evt-008",
+    "source": "Society for Urban Climate Research",
+    "posted_on": "2026-03-02",
+    "title": "UrbanClimate 2026: Call for Papers",
+    "description": "<h2>Call for Papers</h2>\n<p>We invite submissions for UrbanClimate 2026, the 9th international conference on heat, air quality and adaptation in cities.</p>\n<table>\n<tr><td>Abstract submission deadline</td><td>15 June 2026</td></tr>\n<tr><td>Notification of acceptance</td><td>1 July 2026</td></tr>\n<tr><td>Early registration closes</td><td>31 July 2026</td></tr>\n<tr><td>Conference</td><td>9&ndash;11 September 2026, Munich</td></tr>\n</table>\n<p>Registration fees: regular &euro;420, student &euro;90. Fees include lunches and the conference dinner.</p>\n<p>All sessions take place on site at the university's main campus; there is no remote participation option.</p>"
+  },
+  {
+    "record_id": "evt-009",
+    "source": "Pixel & Grid Studio (Austin, TX)",
+    "posted_on": "2026-05-11",
+    "title": "Portfolio Teardown: live UX workshop",
+    "description": "<p>Bring one case study and leave with a sharper story. In this small-group, hands-on workshop you will rewrite your project intro, restructure a case study, and get direct feedback from two senior designers.</p>\n<p><em>Saturday, June 6, 2026 &middot; 10:00 AM &ndash; 1:00 PM Central Time</em></p>\n<p>The workshop runs entirely online in a live video room; a recording is not provided. $49 per seat, limited to 12 participants.</p>\n<p>Pixel &amp; Grid is a two-person design studio based in Austin, Texas.</p>"
+  },
+  {
+    "record_id": "evt-010",
+    "source": "Kreuzberg Data Collective",
+    "posted_on": "2026-03-05",
+    "title": "Data & AI Night #17",
+    "description": "<html><head><style>.hero{font-family:Arial;color:#222}.btn{background:#06c}</style></head><body>\n<!-- newsletter block 3 -->\n<div class=\"hero\"><h1>Data&nbsp;&amp;&nbsp;AI Night #17</h1>\n<p>Three lightning talks: feature stores in practice, evaluating RAG pipelines, and a post-mortem of a failed A/B test.</p>\n<p>Wed&nbsp;25&nbsp;March&nbsp;2026, 18:45 &bull; Hinterhof Loft, Berlin</p>\n<p>Tickets: &euro;12 (includes one drink). <a class=\"btn\" href=\"https://example.org/tickets?utm_source=newsletter\">Get your ticket</a></p></div>\n<script>window.dataLayer=window.dataLayer||[];dataLayer.push({event:'view',price:0,date:'2026-01-01'});</script>\n</body></html>"
+  }
+]
