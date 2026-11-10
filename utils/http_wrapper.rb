@@ -1,29 +1,24 @@
 require "json"
-require "uri"
 require "net/http"
 require "openssl"
+require "uri"
 
+# Minimal JSON-over-HTTP client on top of Net::HTTP.
 class HttpWrapper
   DEFAULT_TIMEOUT = 15
-  MAX_REDIRECTS   = 3
 
-  def self.get(url, headers: {}, timeout: DEFAULT_TIMEOUT, follow: MAX_REDIRECTS)
-    request(:get, url, nil, headers, timeout, follow)
-  end
+  NETWORK_ERRORS = [
+    Timeout::Error,
+    SocketError,
+    OpenSSL::SSL::SSLError,
+    SystemCallError,
+    EOFError
+  ].freeze
 
+  # Returns [status_code, body]. A request that never got an HTTP response
+  # (DNS failure, timeout, refused connection) returns [0, "ErrorClass: message"],
+  # so callers can report why it failed instead of treating it as an empty result.
   def self.post_json(url, body_hash, headers: {}, timeout: DEFAULT_TIMEOUT)
-    request(
-      :post,
-      url,
-      JSON.dump(body_hash),
-      headers.merge("Content-Type" => "application/json"),
-      timeout
-    )
-  end
-
-  private
-
-  def self.request(method, url, body = nil, headers = {}, timeout = DEFAULT_TIMEOUT, follow = MAX_REDIRECTS)
     uri = URI(url)
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = (uri.scheme == "https")
@@ -31,21 +26,14 @@ class HttpWrapper
     http.open_timeout = timeout
     http.read_timeout = timeout
 
-    req = method == :get ? Net::HTTP::Get.new(uri) : Net::HTTP::Post.new(uri)
-    headers.each { |k, v| req[k] = v }
-    req.body = body if body
+    request = Net::HTTP::Post.new(uri)
+    request["Content-Type"] = "application/json"
+    headers.each { |name, value| request[name] = value }
+    request.body = JSON.generate(body_hash)
 
-    res = http.request(req)
-
-    if res.is_a?(Net::HTTPRedirection) && follow > 0
-      location = res["location"]
-      new_url = URI.join(url, location).to_s rescue location
-      return request(method, new_url, body, headers, timeout, follow - 1)
-    end
-
-    [res.code.to_i, res]
-  rescue Timeout::Error, SocketError, OpenSSL::SSL::SSLError, Errno::ECONNREFUSED => e
-    warn "[HTTP #{method.upcase}] #{url} failed: #{e.class} - #{e.message}"
-    [0, nil]
+    response = http.request(request)
+    [response.code.to_i, response.body.to_s.force_encoding("UTF-8")]
+  rescue *NETWORK_ERRORS => e
+    [0, "#{e.class}: #{e.message}"]
   end
 end

@@ -1,88 +1,116 @@
-require_relative "utils/http_wrapper"
 require "json"
 
+require_relative "utils/schema_validator"
+
+# Sends one text to the model with a JSON Schema and returns either the
+# validated object or the reason it could not be produced.
+#
+# Statuses:
+#   ok               model output parsed and matches the schema
+#   api_error        no usable HTTP response (network failure or non-2xx status)
+#   invalid_response the API response itself was not the expected JSON
+#   incomplete       the model stopped before finishing its output
+#   refused          the model declined to answer
+#   invalid_json     the model's output text is not JSON
+#   invalid_schema   the output is JSON but does not match the schema
 class LlmExtractor
-  API_URL = "https://api.openai.com/v1/responses"
-  MODEL = "gpt-5.2"
-  DEFAULT_TIMEOUT = 120
+  DEFAULT_MODEL = "gpt-5.2"
 
-  def initialize(api_key:, prompt_id:, prompt_version:, taxonomy_path: nil)
-    raise ArgumentError, "api_key is required" if api_key.to_s.strip.empty?
-    raise ArgumentError, "prompt_id is required" if prompt_id.to_s.strip.empty?
-    raise ArgumentError, "prompt_version is required" if prompt_version.to_s.strip.empty?
-
-    @api_key = api_key
-    @prompt_id = prompt_id
-    @prompt_version = prompt_version
-    @taxonomy = load_taxonomy(taxonomy_path)
-    @taxonomy_json = JSON.generate(@taxonomy)
+  Result = Struct.new(:status, :data, :error, keyword_init: true) do
+    def ok?
+      status == "ok"
+    end
   end
 
-  def extract_record(input_name:, title:, description:)
-    body = build_body(
-      input_name: input_name,
-      title: title,
-      description: description
-    )
+  def initialize(transport:, instructions:, schema:, schema_name:, model: DEFAULT_MODEL)
+    raise ArgumentError, "instructions are required" if instructions.to_s.strip.empty?
+    raise ArgumentError, "schema must be a JSON object" unless schema.is_a?(Hash)
 
-    code, res = HttpWrapper.post_json(
-      API_URL,
-      body,
-      headers: { "Authorization" => "Bearer #{@api_key}" },
-      timeout: DEFAULT_TIMEOUT
-    )
+    @transport = transport
+    @instructions = instructions
+    @schema = schema
+    @schema_name = schema_name
+    @model = model
+  end
 
-    return {} unless code.between?(200, 299)
+  def extract(record_id:, input:)
+    status, body = @transport.call(record_id, build_body(input))
 
-    parse_response(res.body)
-  rescue StandardError => e
-    warn "LLM extraction error for #{input_name}: #{e.message}"
-    {}
+    return failure("api_error", "request failed: #{body}") if status.zero?
+    return failure("api_error", "HTTP #{status}: #{api_error_message(body)}") unless status.between?(200, 299)
+
+    interpret(body)
+  end
+
+  # Request body for the OpenAI Responses API. The prompt and the schema both
+  # come from files in this repo; strict mode asks the API to constrain the
+  # model's output to the schema.
+  def build_body(input)
+    {
+      model: @model,
+      instructions: @instructions,
+      input: input,
+      text: {
+        format: {
+          type: "json_schema",
+          name: @schema_name,
+          strict: true,
+          schema: @schema
+        }
+      },
+      store: false
+    }
   end
 
   private
 
-  def load_taxonomy(path)
-    return [] if path.nil? || path.strip.empty?
-    JSON.parse(File.read(path))
-  rescue Errno::ENOENT, JSON::ParserError
-    []
-  end
+  def interpret(body)
+    response = parse_json(body)
+    return failure("invalid_response", "API response is not a JSON object") unless response.is_a?(Hash)
 
-  def build_body(input_name:, title:, description:)
-    {
-      model: MODEL,
-      prompt: {
-        id: @prompt_id,
-        version: @prompt_version,
-        variables: {
-          "input_name" => input_name,
-          "title" => title,
-          "description" => description,
-          "taxonomy" => @taxonomy_json
-        }
-      }
-    }
-  end
-
-  def parse_response(body)
-    data = safe_json_parse(body) || {}
-    parsed = nil
-
-    (data["output"] || []).each do |item|
-      (item["content"] || []).each do |content|
-        parsed ||= content["json"] if %w[json output_json].include?(content["type"]) && content["json"].is_a?(Hash)
-        parsed ||= safe_json_parse(content["text"]) if %w[text output_text].include?(content["type"])
-      end
+    if response["status"] == "incomplete"
+      reason = response.dig("incomplete_details", "reason") || "unknown reason"
+      return failure("incomplete", "model output was cut off (#{reason})")
     end
 
-    parsed ||= safe_json_parse(data["output_text"])
-    parsed || {}
+    parts = content_parts(response)
+    refusal = parts.find { |part| part["type"] == "refusal" }
+    return failure("refused", refusal["refusal"].to_s) if refusal
+
+    text = parts.select { |part| part["type"] == "output_text" }.map { |part| part["text"].to_s }.join
+    return failure("invalid_json", "response contains no output text") if text.strip.empty?
+
+    data = parse_json(text)
+    return failure("invalid_json", "model output is not valid JSON") if data.nil?
+
+    errors = SchemaValidator.validate(data, @schema)
+    return failure("invalid_schema", errors.join("; ")) unless errors.empty?
+
+    Result.new(status: "ok", data: data)
   end
 
-  def safe_json_parse(value)
+  def content_parts(response)
+    output = response["output"]
+    return [] unless output.is_a?(Array)
+
+    output.flat_map do |item|
+      item.is_a?(Hash) && item["content"].is_a?(Array) ? item["content"] : []
+    end.select { |part| part.is_a?(Hash) }
+  end
+
+  def api_error_message(body)
+    parsed = parse_json(body)
+    message = parsed.dig("error", "message") if parsed.is_a?(Hash) && parsed["error"].is_a?(Hash)
+    (message || body).to_s.strip[0, 300]
+  end
+
+  def parse_json(value)
     JSON.parse(value)
   rescue JSON::ParserError, TypeError
     nil
+  end
+
+  def failure(status, error)
+    Result.new(status: status, error: error)
   end
 end

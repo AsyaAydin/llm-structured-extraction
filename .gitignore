@@ -9,8 +9,8 @@ vendor/bundle/
 # Logs
 *.log
 
-# Output
-*.csv
+# Generated output (the example run in examples/ is committed on purpose)
+/structured_records_*.csv
 
 # Environment variables
 .env
